@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>注册界面</title>
+    <script>
+        window.onload = function () {
+            var img = document.getElementById("Code_img");
+            var changer = document.getElementById("changer");
+            img.onclick = function () {
+                //加时间戳
+                var date = new Date().getTime();
+                img.src = "/LoginProject/register?" + date;
+            }
+            changer.onclick = function () {
+                //加时间戳
+                var date = new Date().getTime();
+                img.src = "/LoginProject/register?" + date;
+            }
+        }
+    </script>
+</head>
+
+<body>
+    <h1>欢迎小猪猪</h1>
+    <form action="" method="post">
+        <div>用户名</div>
+        <input type="text" name="username">
+        <div>密码</div>
+        <input type="password" name="password">
+        <div>验证码</div>
+        <input type="text" name="codeimg">
+        <div> <img id="Code_img" src="/LoginProject/register">
+            <a id="changer" href="#">看不清，换一张？</a>
+        </div>
+        <div> <a id="" href="img/h.jpg"> ？？？？？</a>
+        </div>
+
+        
+        <input type="submit" value="注册">
+    </form>
+</body>
+
+</html>
