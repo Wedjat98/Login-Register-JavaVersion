@@ -1,4 +1,4 @@
-package cn.lionlemon.web;
+package cn.lionlemon.web.servlet;
 import cn.lionlemon.service.UserService;
 import jakarta.servlet.ServletContext;
 import jakarta.servlet.ServletException;
