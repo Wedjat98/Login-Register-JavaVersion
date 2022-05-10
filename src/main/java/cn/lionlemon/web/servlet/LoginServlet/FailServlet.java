@@ -12,7 +12,7 @@ public class FailServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         resp.setContentType("text/html;charset=utf-8");
-        resp.getWriter().println("<h1>欢迎小猪猪</h1><h2>登录失败</h2>");
+        resp.getWriter().println("<h1>欢迎</h1><h2>登录失败</h2>");
     }
 
     @Override
