@@ -1,8 +1,8 @@
 type Query {
-    shows(titleFilter: String): [Show]
+#    ! means not null
+    events:[String!]
 }
 
-type Show {
-    title: String
-    releaseYear: Int
+type Mutation {
+    createEvent(name:String):String
 }
