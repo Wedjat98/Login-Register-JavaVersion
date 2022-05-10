@@ -11,6 +11,6 @@ import org.springframework.context.annotation.PropertySource;
 //<context:property-placeholder location="classpath:jdbc.properties"/>
 @PropertySource("classpath:jdbc.properties")
 //<import resource="applicationContext-dao.xml"/>
-@Import({DataSourceConfiguration.class})//参数是个数组，可以写多个引入 用,号隔开
+//@Import({DataSourceConfiguration.class})//参数是个数组，可以写多个引入 用,号隔开
 public class SpringConfiguration {
 }
