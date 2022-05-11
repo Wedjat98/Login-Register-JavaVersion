@@ -1,6 +1,5 @@
 package cn.lionlemon.web.servlet;
 
-import cn.lionlemon.domain.User;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.ServletOutputStream;
 import jakarta.servlet.annotation.WebServlet;

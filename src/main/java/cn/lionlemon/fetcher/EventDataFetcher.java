@@ -23,6 +23,7 @@ public class EventDataFetcher {
         this.eventEntityMapper = eventEntityMapper;
     }
 
+    //how to insert creator?
     @DgsQuery
     public List<Event> events() {
         List<EventEntity> eventEntities = eventEntityMapper.selectList(new QueryWrapper<>());

@@ -1,7 +1,7 @@
 package cn.lionlemon.web.servlet.LoginServlet;
 
 import cn.lionlemon.dao.UserDao;
-import cn.lionlemon.domain.User;
+import cn.lionlemon.type.User;
 
 import jakarta.servlet.*;
 import jakarta.servlet.annotation.WebServlet;
@@ -20,7 +20,7 @@ public class LoginServlet extends HttpServlet {
         String username = req.getParameter("username");
         String password = req.getParameter("password");
         User loginUser =new User();
-        loginUser.setUsername(username);
+        loginUser.setEmail(username);
         loginUser.setPassword(password);
         UserDao dao =new UserDao();
         User user = dao.login(loginUser);

@@ -1,14 +1,14 @@
 package cn.lionlemon.test;
 
 import cn.lionlemon.dao.UserDao;
-import cn.lionlemon.domain.User;
+import cn.lionlemon.type.User;
 import org.junit.jupiter.api.Test;
 
 public class UserDaoTest {
 @Test
     public void testLogin(){
         User loginuser = new User();
-        loginuser.setUsername("xiaozhuzhu");
+        loginuser.setEmail("xiaozhuzhu");
         loginuser.setPassword("123123");
 
 

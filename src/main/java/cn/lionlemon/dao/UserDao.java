@@ -1,6 +1,6 @@
 package cn.lionlemon.dao;
 
-import cn.lionlemon.domain.User;
+import cn.lionlemon.type.User;
 import cn.lionlemon.util.JDBCUtils;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
@@ -16,11 +16,12 @@ public class UserDao {
     public User login(User loginUser){
         try {
             //登录逻辑
-            String sql ="select * from user where username= ? and password = ?";
-            User user = template.queryForObject(sql,
+            String sql;
+            sql = "";
+//            String sql ="select * from tb_user where email= ? and password = ?";
+            return template.queryForObject(sql,
                     new BeanPropertyRowMapper<User>(User.class),
-                    loginUser.getUsername(), loginUser.getPassword());
-            return user;
+                    loginUser.getEmail(), loginUser.getPassword());
         } catch (DataAccessException e) {
             e.printStackTrace();
             return null;

@@ -1,6 +1,6 @@
 package cn.lionlemon.web.servlet.LoginServlet;
 
-import cn.lionlemon.domain.User;
+import cn.lionlemon.type.User;
 
 import jakarta.servlet.*;
 import jakarta.servlet.annotation.WebServlet;
@@ -18,7 +18,7 @@ public class SuccessServlet extends HttpServlet {
 
         if (user!=null) {
             resp.setContentType("text/html;charset=utf-8");
-            resp.getWriter().println("<h1>欢迎</h1><h2>登录成功！用户名是"+user.getUsername()+"</h2>");
+            resp.getWriter().println("<h1>欢迎</h1><h2>登录成功！email is "+user.getEmail()+"</h2>");
         }
     }
 
