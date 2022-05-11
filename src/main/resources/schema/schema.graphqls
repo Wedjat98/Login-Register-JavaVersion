@@ -3,15 +3,10 @@ type Query {
     events:[Event!]!
 }
 
-input UserInput{
-    #userInput need to input the password!
-    email:String!
-    password:String!
-}
 
 type Mutation {
     createEvent(eventInput:EventInput!):Event!
-    createUser(userInput:UserInput):User!
+    createUser(userInput: UserInput!): User!
 }
 
 input EventInput{
@@ -19,6 +14,7 @@ input EventInput{
     description:String!
     price:Float!
     date:String!
+    creatorId:Int!
 }
 
 type Event{
@@ -27,12 +23,19 @@ type Event{
     description:String!
     price:Float!
     date:String!
+    creator:User!
 }
 
 
 type User{
     id:ID!
     email:String!
-    #password must not add ! ,cause post result will show it out directly
     password:String
+    #password must not add ! ,cause post result will show it out directly
+
+}
+input UserInput{
+    #userInput need to input the password!
+    email:String!
+    password:String!
 }

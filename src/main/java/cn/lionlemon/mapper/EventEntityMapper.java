@@ -6,5 +6,4 @@ import org.apache.ibatis.annotations.Mapper;
 
 @Mapper
 public interface EventEntityMapper extends BaseMapper<EventEntity> {
-    abstract boolean isClosed();
 }

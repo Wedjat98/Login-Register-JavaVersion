@@ -12,7 +12,7 @@ public class User {
 
     public static User formEntity(UserEntity userEntity){
         User user = new User();
-        user.setEmail(user.getEmail());
+        user.setEmail(userEntity.getEmail());
         user.setId(userEntity.getId());
         return user;
     }
