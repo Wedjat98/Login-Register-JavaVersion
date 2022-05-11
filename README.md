@@ -16,7 +16,7 @@ Netflix DGS
 
 React
 
-jwt
+jwt(auth0)
 
 MyBatis-Plus
 
