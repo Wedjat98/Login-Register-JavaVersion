@@ -4,9 +4,8 @@ import cn.lionlemon.entity.EventEntity;
 import cn.lionlemon.entity.UserEntity;
 import cn.lionlemon.mapper.EventEntityMapper;
 import cn.lionlemon.mapper.UserEntityMapper;
-import cn.lionlemon.type.Event;
-import cn.lionlemon.type.User;
-import cn.lionlemon.type.UserInput;
+import cn.lionlemon.type.*;
+import cn.lionlemon.util.TokenUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.netflix.graphql.dgs.*;
 import lombok.extern.slf4j.Slf4j;
@@ -35,6 +34,25 @@ public class UserDataFetcher {
         return userEntities.stream().map(User::formEntity).collect(Collectors.toList());
     }
 
+    @DgsQuery
+    public AuthData login(@InputArgument LoginInput loginInput) {
+
+        UserEntity userEntity = this.findUserByEmail(loginInput.getEmail());
+        if (userEntity == null) {
+            throw new RuntimeException("email user is not exist");
+        }
+        boolean match = passwordEncoder.matches(loginInput.getPassword(), userEntity.getPassword());
+
+        if (!match) {
+            throw new RuntimeException("check password");
+        }
+
+        String token = TokenUtil.signToken(userEntity.getId(), 1);
+        return new AuthData().setUserId(userEntity.getId())
+                .setToken(token)
+                .setTokenExpiration(1);
+
+    }
     @DgsMutation
     public User createUser(@InputArgument UserInput userInput) {
         ensureUserNotExists(userInput);
@@ -67,5 +85,11 @@ public class UserDataFetcher {
         if (userEntityMapper.selectCount(queryWrapper) >= 1) {
             throw new RuntimeException("this email is signed");
         }
+    }
+
+    private UserEntity findUserByEmail(String email) {
+        QueryWrapper<UserEntity> queryWrapper = new QueryWrapper<>();
+        queryWrapper.lambda().eq(UserEntity::getEmail, email);
+        return userEntityMapper.selectOne(queryWrapper);
     }
 }

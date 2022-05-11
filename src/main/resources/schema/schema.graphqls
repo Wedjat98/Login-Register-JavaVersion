@@ -2,7 +2,9 @@
 type Query {
     events:[Event!]!
     users:[User!]!
+    login(loginInput:LoginInput!):AuthData!
 }
+
 
 
 type Mutation {
@@ -41,3 +43,13 @@ input UserInput{
     password:String!
 }
 
+input LoginInput{
+    email:String!
+    password:String!
+}
+
+type AuthData{
+    userId:ID!
+    token:String!
+    tokenExpiration:Int!
+}

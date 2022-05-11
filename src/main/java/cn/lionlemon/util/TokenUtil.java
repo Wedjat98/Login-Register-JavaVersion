@@ -9,7 +9,9 @@ import java.util.Date;
 
 public class TokenUtil {
     static final long MILLI_SECONDS_IN_HOUR = 60 * 60 * 1000;
+
     final static String ISSUER = "Wedjat";
+
     final static String USER_ID = "userid";
     static Algorithm algorithm = Algorithm.HMAC256("aHbK69RJjN");
 
