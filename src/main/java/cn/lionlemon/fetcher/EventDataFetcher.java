@@ -8,10 +8,7 @@ import cn.lionlemon.type.Event;
 import cn.lionlemon.type.EventInput;
 import cn.lionlemon.type.User;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.netflix.graphql.dgs.DgsComponent;
-import com.netflix.graphql.dgs.DgsMutation;
-import com.netflix.graphql.dgs.DgsQuery;
-import com.netflix.graphql.dgs.InputArgument;
+import com.netflix.graphql.dgs.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -31,11 +28,7 @@ public class EventDataFetcher {
     @DgsQuery
     public List<Event> events() {
         List<EventEntity> eventEntities = eventEntityMapper.selectList(new QueryWrapper<>());
-        return eventEntities.stream().map(eventEntity -> {
-            Event event = Event.fromEntity(eventEntity);
-            populateEventWithUser(event,eventEntity.getCreatorId());
-            return event;
-        }).collect(Collectors.toList());
+        return eventEntities.stream().map(Event::fromEntity).collect(Collectors.toList());
     }
 
     //type and name must same to schema filed
@@ -43,14 +36,23 @@ public class EventDataFetcher {
     public Event createEvent(@InputArgument(name = "eventInput") EventInput input) {
         EventEntity eventEntity = EventEntity.fromEventInput(input);
         eventEntityMapper.insert(eventEntity);
-        Event newEvent = Event.fromEntity(eventEntity);
-        populateEventWithUser(newEvent,eventEntity.getCreatorId());
-        return newEvent;
+        //        populateEventWithUser(newEvent, eventEntity.getCreatorId());
+        return Event.fromEntity(eventEntity);
     }
 
+    @DgsData(parentType = "Event")
+    public User creator(DgsDataFetchingEnvironment dfe) {
+        Event event = dfe.getSource();
+        UserEntity userEntity = userEntityMapper.selectById(event.getCreatorId());
+        return User.formEntity(userEntity);
+    }
+
+    /*did not use the resolver way (useless) if front end do not need ,do not return
     private void populateEventWithUser(Event event,Integer userid){
-        UserEntity userEntity = userEntityMapper.selectById(userid);
+       UserEntity userEntity = userEntityMapper.selectById(userid);
         User user = User.formEntity(userEntity);
         event.setCreator(user);
     }
+    */
 }
+
