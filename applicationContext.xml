@@ -5,16 +5,16 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
                         http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
 
-<!--    &lt;!&ndash;加载外部的properties文件&ndash;&gt;-->
-<!--    <context:property-placeholder location="classpath:jdbc.properties"/>-->
+    <!--加载外部的properties文件-->
+    <context:property-placeholder location="classpath:jdbc.properties"/>
 
-<!--    &lt;!&ndash;配置数据源&ndash;&gt;-->
-<!--    <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">-->
-<!--        <property name="driverClass" value="${jdbc.driver}"/>-->
-<!--        <property name="jdbcUrl" value="${jdbc.url}"/>-->
-<!--        <property name="user" value="${jdbc.username}"/>-->
-<!--        <property name="password" value="${jdbc.password}"/>-->
-<!--    </bean>-->
+    <!--配置数据源-->
+    <bean id="comboPooledDataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
+        <property name="driverClass" value="${jdbc.driver}"/>
+        <property name="jdbcUrl" value="${jdbc.url}"/>
+        <property name="user" value="${jdbc.username}"/>
+        <property name="password" value="${jdbc.password}"/>
+    </bean>
 
     <!--配置Dao-->
     <bean id="userDao" class="cn.lionlemon.dao.impl.UserDaoImpl"/>
