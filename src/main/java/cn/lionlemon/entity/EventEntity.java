@@ -18,6 +18,7 @@ public class EventEntity {
     private String description;
     private Double price;
     private Date date;
+    private Integer creatorId;
 
     public static EventEntity fromEventInput(EventInput input){
         EventEntity eventEntity = new EventEntity();
@@ -25,6 +26,7 @@ public class EventEntity {
         eventEntity.setDescription(input.getDescription());
         eventEntity.setPrice(input.getPrice());
         eventEntity.setDate(DateUtil.convertISOStringToDate(input.getDate()));
+        eventEntity.setCreatorId(input.getCreatorId());
         return eventEntity;
 
     }

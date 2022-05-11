@@ -8,4 +8,5 @@ public class EventInput {
     private String description;
     private Double price;
     private String date;
+    private Integer creatorId;
 }
