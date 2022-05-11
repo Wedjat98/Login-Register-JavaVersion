@@ -16,6 +16,8 @@ Netflix DGS
 
 React
 
+jwt
+
 MyBatis-Plus
 
 PostgreSQL
