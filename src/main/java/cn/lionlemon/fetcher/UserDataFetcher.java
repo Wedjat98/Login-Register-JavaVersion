@@ -105,7 +105,7 @@ public class UserDataFetcher {
         return userEntityMapper.selectOne(queryWrapper);
     }
 
-    @DgsData(parentType = "user")
+    @DgsData(parentType = "User")
     public List<Booking> bookings(DgsDataFetchingEnvironment dfe) {
         User user = dfe.getSource();
         QueryWrapper<BookingEntity> queryWrapper = new QueryWrapper<>();

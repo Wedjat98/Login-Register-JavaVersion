@@ -43,7 +43,7 @@ public class BookingDataFetcher {
     }
 
     @DgsMutation
-    public Booking bookingEvent(@InputArgument String eventId, DataFetchingEnvironment dfe) {
+    public Booking bookEvent(@InputArgument String eventId, DataFetchingEnvironment dfe) {
         AuthContext authContext = DgsContext.getCustomContext(dfe);
         authContext.ensureAuthenticated();
 
