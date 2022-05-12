@@ -1,8 +1,10 @@
 package cn.lionlemon.fetcher;
 
 import cn.lionlemon.custom.AuthContext;
+import cn.lionlemon.entity.BookingEntity;
 import cn.lionlemon.entity.EventEntity;
 import cn.lionlemon.entity.UserEntity;
+import cn.lionlemon.mapper.BookingEntityMapper;
 import cn.lionlemon.mapper.EventEntityMapper;
 import cn.lionlemon.mapper.UserEntityMapper;
 import cn.lionlemon.type.*;
@@ -25,10 +27,14 @@ public class UserDataFetcher {
     private final EventEntityMapper eventEntityMapper;
     private final PasswordEncoder passwordEncoder;
 
-    public UserDataFetcher(UserEntityMapper userEntityMapper, EventEntityMapper eventEntityMapper, PasswordEncoder passwordEncoder) {
+    private final BookingEntityMapper bookingEntityMapper;
+
+
+    public UserDataFetcher(UserEntityMapper userEntityMapper, EventEntityMapper eventEntityMapper, PasswordEncoder passwordEncoder, BookingEntityMapper bookingEntityMapper) {
         this.userEntityMapper = userEntityMapper;
         this.eventEntityMapper = eventEntityMapper;
         this.passwordEncoder = passwordEncoder;
+        this.bookingEntityMapper = bookingEntityMapper;
     }
 
     @DgsQuery
@@ -98,4 +104,17 @@ public class UserDataFetcher {
         queryWrapper.lambda().eq(UserEntity::getEmail, email);
         return userEntityMapper.selectOne(queryWrapper);
     }
+
+    @DgsData(parentType = "user")
+    public List<Booking> bookings(DgsDataFetchingEnvironment dfe) {
+        User user = dfe.getSource();
+        QueryWrapper<BookingEntity> queryWrapper = new QueryWrapper<>();
+        queryWrapper.lambda().eq(BookingEntity::getUserId, user.getId());
+        List<BookingEntity> bookingEntities = bookingEntityMapper.selectList(queryWrapper);
+        return bookingEntities
+                .stream()
+                .map(Booking::fromEntity)
+                .collect(Collectors.toList());
+    }
+
 }
