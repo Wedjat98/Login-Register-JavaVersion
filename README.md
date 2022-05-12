@@ -1,8 +1,6 @@
-# A Login SignIn Event Book Application  
+# A Event Book Application
 
-[//]: # (构建一个基于的前后分离应用EasyEvent，使用的技术栈：)
-
-ユーザーログイン、登録、予約をできるWebApplication
+ユーザーログイン、登録、イベントを予約をできるWebアプリケーション。
 
 使用した技術
 
@@ -21,3 +19,5 @@ jwt(auth0)
 MyBatis-Plus
 
 PostgreSQL
+
+[//]: #
