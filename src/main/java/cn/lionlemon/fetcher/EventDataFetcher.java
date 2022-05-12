@@ -1,5 +1,6 @@
 package cn.lionlemon.fetcher;
 
+import cn.lionlemon.custom.AuthContext;
 import cn.lionlemon.entity.EventEntity;
 import cn.lionlemon.entity.UserEntity;
 import cn.lionlemon.mapper.EventEntityMapper;
@@ -9,6 +10,8 @@ import cn.lionlemon.type.EventInput;
 import cn.lionlemon.type.User;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.netflix.graphql.dgs.*;
+import com.netflix.graphql.dgs.context.DgsContext;
+import graphql.schema.DataFetchingEnvironment;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -32,9 +35,14 @@ public class EventDataFetcher {
     }
 
     //type and name must same to schema filed
+    //only Authed user can use createEvent
     @DgsMutation
-    public Event createEvent(@InputArgument(name = "eventInput") EventInput input) {
+    public Event createEvent(@InputArgument(name = "eventInput") EventInput input, DataFetchingEnvironment dfe) {
+
+        AuthContext authContext = DgsContext.getCustomContext(dfe);
+        authContext.ensureAuthenticated();
         EventEntity eventEntity = EventEntity.fromEventInput(input);
+        eventEntity.setCreatorId(authContext.getUserEntity().getId());
         eventEntityMapper.insert(eventEntity);
         //        populateEventWithUser(newEvent, eventEntity.getCreatorId());
         return Event.fromEntity(eventEntity);

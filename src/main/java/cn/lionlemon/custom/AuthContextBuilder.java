@@ -27,13 +27,15 @@ public class AuthContextBuilder implements DgsCustomContextBuilderWithRequest {
     public Object build(@Nullable Map map, @Nullable HttpHeaders httpHeaders, @Nullable WebRequest webRequest) {
         log.info("Building Auth Context");
         AuthContext authContext = new AuthContext();
-        if (httpHeaders.containsKey(AUTHORIZATION_HEADER)) {
+        if (!httpHeaders.containsKey(AUTHORIZATION_HEADER)) {
             log.info("can not authorization");
             return authContext;
         }
 
         String authorization = httpHeaders.getFirst(AUTHORIZATION_HEADER);
-        String token = authorization.replace("Bearer", "");
+        String token;
+//        token = authorization;
+        token = authorization != null ? authorization.replace("Bearer ", "") : null;
 
         Integer userId;
         try {

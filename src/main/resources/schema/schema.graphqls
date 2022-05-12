@@ -17,7 +17,6 @@ input EventInput{
     description:String!
     price:Float!
     date:String!
-    creatorId:Int!
 }
 
 type Event{

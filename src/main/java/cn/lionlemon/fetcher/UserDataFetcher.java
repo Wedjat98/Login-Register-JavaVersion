@@ -1,5 +1,6 @@
 package cn.lionlemon.fetcher;
 
+import cn.lionlemon.custom.AuthContext;
 import cn.lionlemon.entity.EventEntity;
 import cn.lionlemon.entity.UserEntity;
 import cn.lionlemon.mapper.EventEntityMapper;
@@ -8,6 +9,8 @@ import cn.lionlemon.type.*;
 import cn.lionlemon.util.TokenUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.netflix.graphql.dgs.*;
+import com.netflix.graphql.dgs.context.DgsContext;
+import graphql.schema.DataFetchingEnvironment;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
@@ -29,7 +32,9 @@ public class UserDataFetcher {
     }
 
     @DgsQuery
-    public List<User> users() {
+    public List<User> users(DataFetchingEnvironment dataFetchingEnvironment) {
+        AuthContext authContext = DgsContext.getCustomContext(dataFetchingEnvironment);
+        authContext.ensureAuthenticated();
         List<UserEntity> userEntities = userEntityMapper.selectList(null);
         return userEntities.stream().map(User::formEntity).collect(Collectors.toList());
     }
@@ -53,6 +58,7 @@ public class UserDataFetcher {
                 .setTokenExpiration(1);
 
     }
+
     @DgsMutation
     public User createUser(@InputArgument UserInput userInput) {
         ensureUserNotExists(userInput);
