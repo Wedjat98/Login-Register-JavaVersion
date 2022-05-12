@@ -3,6 +3,7 @@ type Query {
     events:[Event!]!
     users:[User!]!
     login(loginInput:LoginInput!):AuthData!
+    bookings:[Booking!]!
 }
 
 
@@ -10,6 +11,8 @@ type Query {
 type Mutation {
     createEvent(eventInput:EventInput!):Event!
     createUser(userInput: UserInput!): User!
+    bookEvent(eventId:ID!):Booking!
+    cancelBooking(bookingId:ID!):Event!
 }
 
 input EventInput{
@@ -35,6 +38,7 @@ type User{
     password:String
     #password must not add ! ,cause post result will show it out directly
     createdEvents:[Event!]
+    bookings:[Booking!]
 }
 input UserInput{
     #userInput need to input the password!
@@ -51,4 +55,12 @@ type AuthData{
     userId:ID!
     token:String!
     tokenExpiration:Int!
+
+}
+type Booking{
+    id:ID!
+    event:Event!
+    user:User!
+    createdAt:String!
+    updateAt:String!
 }

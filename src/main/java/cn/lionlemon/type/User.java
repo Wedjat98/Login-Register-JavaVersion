@@ -13,6 +13,7 @@ public class User {
     private String email;
     private String password;
     private List<Event> createdEvents = new ArrayList<>();
+    private List<Booking> bookings = new ArrayList<>();
 
     public static User formEntity(UserEntity userEntity){
         User user = new User();
