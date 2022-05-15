@@ -2,7 +2,7 @@ import {Component} from 'react'
 
 class Bookings extends Component{
     render() {
-        return <h2>Bookings Page</h2>
+        return <h2>予約</h2>
     }
 }
 
