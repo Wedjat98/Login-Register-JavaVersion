@@ -50,7 +50,7 @@ public class UserDataFetcher {
 
         UserEntity userEntity = this.findUserByEmail(loginInput.getEmail());
         if (userEntity == null) {
-            throw new RuntimeException("email user is not exist");
+            throw new RuntimeException("email is not exist");
         }
         boolean match = passwordEncoder.matches(loginInput.getPassword(), userEntity.getPassword());
 

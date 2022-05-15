@@ -1,5 +1,6 @@
 package cn.lionlemon.custom;
 
+import cn.lionlemon.config.AppConfig;
 import cn.lionlemon.entity.UserEntity;
 import cn.lionlemon.mapper.UserEntityMapper;
 import cn.lionlemon.util.TokenUtil;
@@ -16,6 +17,7 @@ import java.util.Map;
 @Slf4j
 public class AuthContextBuilder implements DgsCustomContextBuilderWithRequest {
     static final String AUTHORIZATION_HEADER = "Authorization";
+//    static final String AUTHORIZATION_HEADER = AppConfig.AUTHOR;
 
     private final UserEntityMapper userEntityMapper;
 
