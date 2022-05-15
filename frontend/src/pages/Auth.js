@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
+import AuthContext from '../context/auth-context';
 import "./Auth.css";
 
 
 class AuthPage extends Component {
-    
+
 
 
     state = {
@@ -11,7 +12,7 @@ class AuthPage extends Component {
     }
 
 
-
+    static contextTypes = AuthContext;
 
     constructor(props) {
         super(props);
@@ -22,7 +23,7 @@ class AuthPage extends Component {
         this.setState((prevState) => {
             return { isLogin: !prevState.isLogin }
         })
-        
+
     }
     submitHandler = (event) => {
 
@@ -78,8 +79,15 @@ class AuthPage extends Component {
                 throw new Error("Something Failed!")
             }
             return response.json()
-        }).then((responseData) => {
-            console.log(responseData)
+        }).then((resData) => {
+            console.log(resData);
+            if (resData.data.login && resData.data.login.token) {
+                this.context.login(
+                    resData.data.login.token,
+                    resData.data.login.userId,
+                    resData.data.login.tokenExpiration
+                );
+            }
         }).catch((error => {
             console.log(error)
         }))
@@ -90,7 +98,7 @@ class AuthPage extends Component {
     render() {
         return (
             <form className="auth-form" onSubmit={this.submitHandler}>
-                <div className="popMessage"> {this.state.isLogin ? "登録" : "ログイン"}</div>
+                <div className="popMessage"> {this.state.isLogin ? "ログイン" : "登録"}</div>
 
                 <div className="form-control">
                     <label htmlFor="email">E-mail</label>
